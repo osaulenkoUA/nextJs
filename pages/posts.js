@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-
-import Head from 'next/head';
+import { useDispatch } from 'react-redux';
 import { Layout } from '../components/Layout.js';
+import articlesActions from '../redux/actions/articlesActions.js';
 
 export default function Posts({ data }) {
+	const dispatch = useDispatch();
 	const [posts, setPosts] = useState(data);
 	useEffect(() => {
 		async function load() {
 			const response = await fetch('http://localhost:3005/articles/get');
 			const dataPosts = await response.json();
 			setPosts(dataPosts);
+			dispatch(articlesActions.getArticlesSuccess(dataPosts));
 		}
 
 		if (!data) load();

@@ -1,15 +1,16 @@
 // import App from 'next/app'
+import { Provider } from 'react-redux';
+import store from '../redux/store.js';
 import '../styles/main.css';
-export default function MyApp({ Component, pageProps }) {
+
+function MyApp({ Component, pageProps }) {
 	return (
 		<>
-			<Component {...pageProps} />;{/* <style jsx global>
-				{`
-					body {
-						font-family: 'Roboto', sans-serif;
-					}
-				`}
-			</style> */}
+			<Provider store={store}>
+				<Component {...pageProps} />;
+			</Provider>
 		</>
 	);
 }
+
+export default MyApp;
